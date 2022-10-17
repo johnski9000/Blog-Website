@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
+import { signOut, useSession } from "next-auth/react";
 
 function Layout({ children, title }) {
+  const { data: session, status } = useSession()
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   function closeMenu () {
@@ -22,9 +25,12 @@ function Layout({ children, title }) {
       </Head>
       <header className="border-b-2 h-16  w-screen flex justify-between fixed z-20 bg-white">
         <div className="h-14 flex pl-4 title-container">
-          {/* <img src='logo-2.png' alt='' className='w-32 logo'/> */}
-          <span className="self-center font-black">Crime</span>
+          <Link href="/"><a className="flex justify-center items-center">
+                      <span className="self-center font-black">Crime</span>
           <span className="self-center blue font-bold italic">Watch</span>
+            </a></Link>
+          {/* <img src='logo-2.png' alt='' className='w-32 logo'/> */}
+
         </div>
         <div className="flex-1 flex justify-center items-middle ">
           <ul className="hidden md:flex justify-center items-center">
@@ -43,9 +49,13 @@ function Layout({ children, title }) {
                       {menuOpen && (
             <div className="absolut menu-pc z-0">
               <div className="w-full h-full relative ">
-                        <Link href="/login"><a><div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom">Account</div></a></Link>
+                        <Link href="/account"><a><div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom">Account</div></a></Link>
                         <div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom">New Post</div>
-                        <div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom">Login</div>
+                        { session ?
+                            <div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom hover:cursor-pointer" onClick={() => signOut()}>Log Out</div>
+                          : 
+                          <Link href="/login"><a><div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom ">Login</div></a></Link>
+                          }
               </div>
             </div>
           )}

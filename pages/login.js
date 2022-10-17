@@ -1,12 +1,24 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react"
+import {  signIn, useSession } from "next-auth/react"
+import { useRouter } from "next/router";
+
 
 function Login() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  useEffect(() => {
+    if (session) {
+      console.log("logged in")
+      router.push("/")
+    }
+  }, [router, session])
+  
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit,   formState: { errors },
+} = useForm();
   const onSubmit =  async ({email, password}) => {
     // console.log(email, password)
     try {
@@ -37,7 +49,7 @@ function Login() {
             </div>
             <div className="mb-8 flex flex-col">
             <label className="text-white">Password:</label>
-              <input id="password" type="text"  className="p-2 login-input" {...register("password")}/>
+              <input id="password" type="password"  className="p-2 login-input" {...register("password")}/>
             </div>
             <button className="mb-4">Login</button>
             <p className=" w-5/6 text-center">
