@@ -7,7 +7,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         'hero': "url('../public/banner-2.jpg')",
-      }
+      },
+      colors: {
+      },
     },
   },
   plugins: [],

@@ -10,6 +10,9 @@ body {
     overflow-x: hidden;
     font-family: 'Roboto', sans-serif;
 }
+.blue {
+  color: #135DD8;
+}
 
 .main-page {
   min-height: 93.8vh;
@@ -153,17 +156,72 @@ main {
   align-items: center;
 }
 .login-page {
-  height: 63.8vh;
   display: flex;
   justify-content: center;
   align-items: center;
+ height: 84.8vh; 
+width: 100%;
+background-color: #333;
 }
-.login-page > form {
+
+.login-page > .card {
+  height: 410px;
+  width: 410px;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page > .card > form {
+  background-color: #292929;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid grey;
-  height: 300px;
-  width: 300px;
+  height: 400px;
+  width: 400px;
+  z-index: 0;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+.login-page > .card::before {
+  position: absolute;
+  content: "";
+  height: 200px;
+  width: 600px;
+  background: linear-gradient(transparent,#135DD8,#135DD8,#135DD8, transparent);
+  animation: spin 4s linear infinite;
+  transform-origin: center;
+}
+.login-input {
+/* border-radius: 39px; */
+border-bottom: 1px solid rgba(177, 177, 177, 0.3);
+background: #282828;
+color: white;
+outline: nones;
+}
+.login-input:focus {
+  outline: none;
+}
+
+form > button {
+  background: black;
+  color: white;
+  width: 150px;
+  height: 40px;
+  border-radius: 27px;
+}
+.greyish {
+  color: rgba(177, 177, 177, 0.3);
+}
+@keyframes spin {
+  0%{
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
 }

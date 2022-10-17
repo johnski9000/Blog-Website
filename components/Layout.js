@@ -18,12 +18,13 @@ function Layout({ children, title }) {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,900;1,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
       </Head>
       <header className="border-b-2 h-16  w-screen flex justify-between fixed z-20 bg-white">
         <div className="h-14 flex pl-4 title-container">
           {/* <img src='logo-2.png' alt='' className='w-32 logo'/> */}
           <span className="self-center font-black">Crime</span>
-          <span className="self-center text-rose-500 font-bold italic">Watch</span>
+          <span className="self-center blue font-bold italic">Watch</span>
         </div>
         <div className="flex-1 flex justify-center items-middle ">
           <ul className="hidden md:flex justify-center items-center">
