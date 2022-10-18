@@ -20,14 +20,13 @@ function Layout({ children, title }) {
         <title>{title}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,900;1,700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,100&family=Merriweather:wght@300;400&family=Roboto&display=swap" rel="stylesheet"/>
       </Head>
       <header className="border-b-2 h-16  w-screen flex justify-between fixed z-20 bg-white">
         <div className="h-14 flex pl-4 title-container">
           <Link href="/"><a className="flex justify-center items-center">
                       <span className="self-center font-black">Crime</span>
-          <span className="self-center blue font-bold italic">Watch</span>
+          <span className="self-center blue font-bold ">Watch</span>
             </a></Link>
           {/* <img src='logo-2.png' alt='' className='w-32 logo'/> */}
 
@@ -48,13 +47,13 @@ function Layout({ children, title }) {
                       <img src="./user.png" className="w-8 user-image" onClick={() => setMenuOpen(!menuOpen)}/>
                       {menuOpen && (
             <div className="absolut menu-pc z-0">
-              <div className="w-full h-full relative ">
-                        <Link href="/account"><a><div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom">Account</div></a></Link>
-                        <div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom">New Post</div>
+              <div className="w-full h-4/5 relative flex justify-evenly items-center flex-col ">
+                        <Link href="/account"><a className=" list-item-custom "><div>Account</div></a></Link>
+                        <div className="block   list-item-custom">New Post</div>
                         { session ?
-                            <div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom hover:cursor-pointer" onClick={() => signOut()}>Log Out</div>
+                            <div className=" list-item-custom hover:cursor-pointer" onClick={() => signOut()}>Log Out</div>
                           : 
-                          <Link href="/login"><a><div className="block text-white text-center hover:bg-black hover:text-rose-600 font-bold list-item-custom ">Login</div></a></Link>
+                          <Link href="/login"><a className=" list-item-custom "><div >Login</div></a></Link>
                           }
               </div>
             </div>

@@ -17,6 +17,7 @@ body {
 .main-page {
   min-height: 93.8vh;
   background-color: white;
+  color: black;
 }
 
 .logo {
@@ -80,12 +81,13 @@ body {
 }
 .menu-pc {
   position: absolute;
-  width: 161px;
-  height: 120px;
+  width: 205px;
+    height: 200px;
   top: 103%;
   right: 19%;
   margin-right: 0;
-  background-color: rgb(7, 7, 7,.7);
+  /* background-color: rgb(7, 7, 7,.7); */
+  background-color: white;
   opacity: 1;
   z-index: 1000;
 
@@ -120,6 +122,7 @@ body {
   display: inline-block;
   padding-left: 20px;
   font-size: 13px;
+  font-family: 'lato';
 }
 .search-icon {
   top: 36%;
@@ -148,12 +151,22 @@ body {
 main {
   padding-top: 4rem;
 }
+.list-item-custom:hover{
+  background-color: #0047AB;
+  font-weight: bold;
+}
 
 .list-item-custom {
-  height: 33%; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: white;
+  background-color: #2b405d;
+    width: 90%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  font-family: 'lato';
+  font-size: 14px;
+  border-radius: 42px;
 }
 .login-page {
   display: flex;
@@ -223,5 +236,13 @@ form > button {
   }
   100% {
     rotate: 360deg;
+  }
+}
+@media screen and (max-width:600px) {
+  .login-page > .card {
+    max-width: 90%;
+  }
+  .login-page > .card > form {
+    max-width: 96%;
   }
 }
