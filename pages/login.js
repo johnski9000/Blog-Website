@@ -45,7 +45,7 @@ function Login() {
             </div> */}
             <div className="mb-4 flex flex-col ">
             <label className="text-white">Email:</label>
-              <input id="username" type="text" className="p-2 login-input" {...register("email")}/>
+              <input id="email" type="text" className="p-2 login-input" {...register("email")}/>
             </div>
             <div className="mb-8 flex flex-col">
             <label className="text-white">Password:</label>
@@ -54,7 +54,7 @@ function Login() {
             <button className="mb-4">Login</button>
             <p className=" w-5/6 text-center">
               No account? Sign up&nbsp;
-              <Link href="">
+              <Link href="/signup">
                 <a className="underline">here</a>
               </Link>
             </p>
