@@ -5,7 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 
 function Layout({ children, title }) {
   const { data: session, status } = useSession()
-
+  console.log(session)
   const [menuOpen, setMenuOpen] = useState(false);
 
   function closeMenu () {
@@ -69,7 +69,15 @@ function Layout({ children, title }) {
           />
           {menuOpen && (
             <div className="absolute bg-blue-50 w-32 h-screen top-0 menu">
-              <div>asda</div>
+              <div className="w-full h-full flex flex-col">
+    <div className="flex h-28" >
+        <div className="flex justify-center items-center w-1/2">image</div>
+        <div className="flex flex-col justify-center items-center">
+            <p>username</p>
+            <p>name</p>
+        </div>
+    </div>
+</div>
             </div>
           )}
         </div>

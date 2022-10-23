@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const User = require("./User")
 
 async function connect() {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("connected")
 }
 async function disconnect() {
+    console.log("disconnected")
     await mongoose.disconnect()
 }
 

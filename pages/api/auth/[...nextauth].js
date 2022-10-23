@@ -2,6 +2,8 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 import data from "../../../utils/data";
 import bcrypt from "bcryptjs"
+import db from "../../../utils/db";
+import User from "../../../Model/User";
 
 
 export default NextAuth({
@@ -24,14 +26,19 @@ export default NextAuth({
     providers: [
         CredentialsProvider({
           async authorize(credentials) {
+            await db.connect()
+            const user = await User.findOne({email: credentials.email})
+            await db.disconnect()
+            console.log(user)
             // Add logic here to look up the user from the credentials supplied
-            const user = data.users.find(user => user.email === credentials.email)
+            // const user = data.users.find(user => user.email === credentials.email)
             if ( user && bcrypt.compareSync(credentials.password, user.password) ) {
               // Any object returned will be saved in `user` property of the JWT
               return {
                 _id: user.id,
                 name: user.name,
                 email: user.email,
+                image: user.image
               }
             } 
               throw new Error('Invalid email or password');      
