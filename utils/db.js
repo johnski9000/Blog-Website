@@ -1,13 +1,14 @@
-const mongoose = require("mongoose")
-
+const mongoose = require('mongoose');
 
 async function connect() {
-    const db = await mongoose.connect(process.env.MONGODB_URI)
-    console.log('New connection');
-    conection.isConnected = db.connections[0].readyState
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("connected")
 }
-
-
 async function disconnect() {
-    
+    console.log("disconnected")
+    await mongoose.disconnect()
 }
+
+const db = {connect, disconnect}
+
+export default db;

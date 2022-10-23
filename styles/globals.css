@@ -106,6 +106,7 @@ body {
   background: #141d2d;
   opacity: 1;
   z-index: 1000;
+  border-radius: 11% 0 0 11%;
 }
 .menu-image,
 .mobile-menu-logo {
