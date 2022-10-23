@@ -16,16 +16,25 @@ body {
 }
 
 .main-page {
-  min-height: 93.8vh;
+  min-height: 94.4vh;
   /* background-color: white; */
   /* background-image: url("/background-white-paint.jpg"); */
   color: black;
 }
 
 .logo {
-  /* font-family: 'Faster One'; */
-  text-shadow: 2px 0px 2px white;
-    color: white;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+@media screen and (max-width: 768px) {
+  .title-container a {
+      font-size: 20px;
+  }
+  .underline-logo {
+  right: 0%;
+  height: 1px !important;
+  bottom: 29% !important;
+}
 }
 .underline-logo {
   position: absolute;
@@ -33,8 +42,8 @@ body {
   width: 80%;
   background: white;
   opacity: 0.8;
-  right: 3%;
-  bottom: 14%;
+  right: 2%;
+  bottom: 20%;
 }
 
 @keyframes bounce-short {
@@ -85,17 +94,27 @@ body {
 }
 .menu {
   position: absolute;
-    width: 35vw;
+    width: 42vw;
     height: 100vh;
     top: 0;
     right: 0;
     margin-right: 0;
     animation-name: slide-out;
   animation-duration: 1s;
+  
   animation-iteration-count: 1;
-  /* background-color: black; */
+  background: #141d2d;
   opacity: 1;
   z-index: 1000;
+}
+.menu-image,
+.mobile-menu-logo {
+  -webkit-filter: invert(100%); /* Safari/Chrome */
+    filter: invert(100%);
+}
+.cog-loggedin {
+  -webkit-filter: invert(50%); /* Safari/Chrome */
+  filter: invert(50%);
 }
 .menu-pc {
   position: absolute;
@@ -160,12 +179,11 @@ footer {
   }
 }
 .title-container {
-    font-size: 32px;
-    text-shadow: .3px 1px black;
+    font-size: 28px;
     animation-name: appear;
   animation-duration: 1s;
   animation-iteration-count: 1;
-  padding-top: 2px;
+  padding-top: 4px;
 }
 .search-input {
   padding-left: 2.3rem;
@@ -176,7 +194,8 @@ main {
   padding-top: 4rem;
 }
 .list-item-custom:hover{
-  background-color: #0047AB;
+  background-color: black;
+  color: white;
   font-weight: bold;
 }
 

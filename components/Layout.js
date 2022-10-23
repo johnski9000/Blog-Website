@@ -89,12 +89,41 @@ function Layout({ children, title }) {
         <div className="md:hidden w-24 flex justify-center items-center relative">
           <img
             src="menu.png"
-            className="w-1/4"
+            className="w-1/4 menu-image"
             onClick={() => setMenuOpen(!menuOpen)}
           />
           {menuOpen && (
-            <div className="absolute bg-blue-50 w-32 h-screen top-0 menu">
-              <div>asda</div>
+            <div className="absolute w-32 h-screen top-0 menu">
+              <div className="text-white flex w-full h-20 justify-around items-center">
+                <div>Logo</div>
+                <div>Dark-Mode</div>
+              </div>
+              <div className="relative h-3/4">
+                <div className="p-6 flex">
+                  <img src="/home.png" className="w-6 mobile-menu-logo"/>
+                  <div className="text-white ml-4">Home</div>
+                </div>
+                <div className="p-6 flex">
+                  <img src="/more.png" className="w-6 mobile-menu-logo"/>
+                  <div className="text-white ml-4">New Post</div>
+                </div>
+                <div className="p-6 flex">
+                  <img src="/user(2).png" className="w-6 mobile-menu-logo"/>
+                  <div className="text-white ml-4">Account</div>
+                </div>
+                <div className="p-6 flex">
+                  <img src="/settings.png" className="w-6 mobile-menu-logo"/>
+                  <div className="text-white ml-4">Settings</div>
+                </div>
+                <div className="text-white absolute w-full h-32 -bottom-36 flex justify-center items-center">
+                  <div>Logo</div>
+                  <div className="px-">
+                    <div>Name</div>
+                    <div>email</div>
+                  </div>
+                  <div><img src="/settings.png" className="w-6 cog-loggedin"/></div>
+                </div>
+              </div>
             </div>
           )}
         </div>
