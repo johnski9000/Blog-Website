@@ -20,7 +20,7 @@ function Login() {
   const { register, handleSubmit,   formState: { errors },
 } = useForm();
   const onSubmit =  async ({email, password}) => {
-    // console.log(email, password)
+    console.log(email, password)
     try {
       const result = await signIn("credentials", {
         redirect: false,

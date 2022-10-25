@@ -21,6 +21,7 @@ async function handler(req, res) {
     name,
     email,
     password: bcryptjs.hashSync(password),
+    image: "https://i8.amplience.net/i/jpl/user-removebg-preview-f96d47f6799897d6b6010bd74245691a"
   });
   const user = await newUser.save();
   console.log("New user created: " + user)

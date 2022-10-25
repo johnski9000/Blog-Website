@@ -1,9 +1,9 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import data from "../../../utils/data";
-import bcrypt from "bcryptjs"
 import db from "../../../utils/db";
 import User from "../../../Model/User";
+import bcryptjs from "bcryptjs"
+
 
 
 export default NextAuth({
@@ -13,10 +13,10 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       // Persist the OAuth access_token to the token right after signin
-      if (user?._id) token._id = user._id; 
+      if (user?._id) token._id = user._id;
       return token
     },
-    async session({ token, session }) {
+    async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
       if (token?._id) session.user._id = token._id;
       return session
@@ -32,10 +32,10 @@ export default NextAuth({
             console.log(user)
             // Add logic here to look up the user from the credentials supplied
             // const user = data.users.find(user => user.email === credentials.email)
-            if ( user && bcrypt.compareSync(credentials.password, user.password) ) {
+            if (user && bcryptjs.compareSync(credentials.password, user.password)) {
               // Any object returned will be saved in `user` property of the JWT
               return {
-                _id: user.id,
+                _id: user._id,
                 name: user.name,
                 email: user.email,
                 image: user.image
