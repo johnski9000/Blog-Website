@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { signOut, useSession } from "next-auth/react";
+import NewPost from "./NewPost";
 
 function Layout({ children, title }) {
   const { data: session, status } = useSession();
   console.log(session);
   const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-console.log(status)
+  const [postOpen, setPostOpen] = useState(false);
+
+  console.log(status);
 
   function closeMenu() {
     if (menuOpen === true) {
@@ -66,28 +69,95 @@ console.log(status)
               onClick={() => setMenuOpen(!menuOpen)}
             />
             {menuOpen && (
-              <div className="absolut menu-pc z-0">
-                <div className="w-full h-4/5 relative flex justify-evenly items-center flex-col ">
-                  <Link href="/account">
-                    <a className=" list-item-custom ">
-                      <div>Account</div>
-                    </a>
-                  </Link>
-                  <div className="block   list-item-custom">New Post</div>
-                  {session ? (
-                    <div
-                      className=" list-item-custom hover:cursor-pointer"
-                      onClick={() => signOut()}
-                    >
-                      Log Out
-                    </div>
-                  ) : (
-                    <Link href="/login">
-                      <a className=" list-item-custom ">
-                        <div>Login</div>
+              // <div className="absolut menu-pc z-0">
+              //   <div className="w-full h-4/5 relative flex justify-evenly items-center flex-col ">
+              //     <Link href="/account">
+              //       <a className=" list-item-custom ">
+              //         <div>Account</div>
+              //       </a>
+              //     </Link>
+              //     <div className="block   list-item-custom">New Post</div>
+              //     {session ? (
+              //       <div
+              //         className=" list-item-custom hover:cursor-pointer"
+              //         onClick={() => signOut()}
+              //       >
+              //         Log Out
+              //       </div>
+              //     ) : (
+              //       <Link href="/login">
+              //         <a className=" list-item-custom ">
+              //           <div>Login</div>
+              //         </a>
+              //       </Link>
+              //     )}
+              //   </div>
+              // </div>
+              <div className="absolute w-72 h-screen top-0 menu-pc">
+                <div className="text-white flex w-full h-20 items-center px-6">
+                  <div className="w-5" onClick={() => setMenuOpen(!menuOpen)}>
+                    <img src="close.png" className="close-menu" />
+                  </div>
+                  <div></div>
+                </div>
+                <div className="relative h-3/4">
+                  <div className="flex">
+                    <Link href="/">
+                      <a className="p-6 flex">
+                        <img src="/home.png" className="w-6 mobile-menu-logo" />
+                        <div className="text-white ml-4">Home</div>
                       </a>
                     </Link>
+                  </div>
+                  <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(!menuOpen)}}>
+                    <img src="/more.png" className="w-6 mobile-menu-logo" />
+                    <div className="text-white ml-4">New Post</div>
+                  </div>
+                  <div className="flex">
+                    <Link href="/account">
+                      <a className="p-6 flex">
+                        <img
+                          src="/user(2).png"
+                          className="w-6 mobile-menu-logo"
+                        />
+                        <div className="text-white ml-4">Account</div>
+                      </a>
+                    </Link>
+                  </div>
+                  {session && (
+                    <div className="p-6 flex hover:cursor-pointer" onClick={() => signOut()}>
+                      <img
+                        src="/log-out.png"
+                        className="w-6 mobile-menu-logo"
+                      />
+                      <div
+                        className="text-white ml-4"
+                        
+                      >
+                        Log Out
+                      </div>
+                    </div>
                   )}
+
+                  <div className="p-6 flex">
+                    <img src="/settings.png" className="w-6 mobile-menu-logo" />
+                    <div className="text-white ml-4">Settings</div>
+                  </div>
+                  <div className="text-white absolute w-full h-24 -bottom-20 flex justify-center items-center">
+                    <div className="w-8 mr-6">
+                      {session && <img src={session.user.image} />}
+                    </div>
+                    {session && (
+                      <div className="w-2/3">
+                        <div className="user-details overflow-scroll">
+                          {session && session.user.name}
+                        </div>
+                        <div className="user-details overflow-scroll">
+                          {session && session.user.email}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
@@ -101,48 +171,79 @@ console.log(status)
           />
           {menuOpen && (
             <div className="absolute w-48 h-screen top-0 menu">
-              <div className="text-white flex w-full h-20 items-center px-6">
-                <div className="w-5" onClick={() => setMenuOpen(!menuOpen)}><img src="close.png" className="close-menu"/></div>
-                <div></div>
-              </div>
-              <div className="relative h-3/4">
-                <div className="p-6 flex">
-                  <img src="/home.png" className="w-6 mobile-menu-logo" />
-                  <div className="text-white ml-4">Home</div>
+            <div className="text-white flex w-full h-20 items-center px-6">
+                  <div className="w-5" onClick={() => setMenuOpen(!menuOpen)}>
+                    <img src="close.png" className="close-menu" />
+                  </div>
+                  <div></div>
                 </div>
-                <div className="p-6 flex">
-                  <img src="/more.png" className="w-6 mobile-menu-logo" />
-                  <div className="text-white ml-4">New Post</div>
-                </div>
-                <div className="p-6 flex">
-                  <img src="/user(2).png" className="w-6 mobile-menu-logo" />
-                  <div className="text-white ml-4">Account</div>
-                </div>
-                <div className="p-6 flex">
-                  <img src="/settings.png" className="w-6 mobile-menu-logo" />
-                  <div className="text-white ml-4">Settings</div>
-                </div>
-                <div className="text-white absolute w-full h-24 -bottom-20 flex justify-evenly items-center">
-                  <div className="w-8">{session && (
-                <img src={session.user.image}/>
-               )}
-               </div>
-                  <div className="w-2/3">
-                    <div className="user-details overflow-scroll">{session && (
-                session.user.name
-               )}</div>
-                    <div className="user-details overflow-scroll">{session && (
-                session.user.email
-               )}</div>
+                <div className="relative h-3/4">
+                  <div className="flex">
+                    <Link href="/">
+                      <a className="p-6 flex">
+                        <img src="/home.png" className="w-6 mobile-menu-logo" />
+                        <div className="text-white ml-4">Home</div>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(!menuOpen)}}>
+                    <img src="/more.png" className="w-6 mobile-menu-logo" />
+                    <div className="text-white ml-4" >New Post</div>
+                  </div>
+                  <div className="flex">
+                    <Link href="/account">
+                      <a className="p-6 flex">
+                        <img
+                          src="/user(2).png"
+                          className="w-6 mobile-menu-logo"
+                        />
+                        <div className="text-white ml-4">Account</div>
+                      </a>
+                    </Link>
+                  </div>
+                  {session && (
+                    <div className="p-6 flex" onClick={() => signOut()}>
+                      <img
+                        src="/log-out.png"
+                        className="w-6 mobile-menu-logo"
+                      />
+                      <div
+                        className="text-white ml-4"
+                      >
+                        Log Out
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="p-6 flex">
+                    <img src="/settings.png" className="w-6 mobile-menu-logo" />
+                    <div className="text-white ml-4">Settings</div>
+                  </div>
+                  <div className="text-white absolute w-full h-24 -bottom-20 flex justify-center items-center">
+                    <div className="w-8">
+                      {session && <img src={session.user.image} />}
+                    </div>
+                    {session && (
+                      <div className="w-2/3  pl-4">
+                        <div className="user-details overflow-scroll">
+                          {session && session.user.name}
+                        </div>
+                        <div className="user-details overflow-scroll">
+                          {session && session.user.email}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
             </div>
           )}
         </div>
       </header>
       <main className="main-page" onClick={() => closeMenu()}>
         {children}
+        {postOpen && (
+          <NewPost></NewPost>
+        )}
       </main>
       <footer className="flex justify-between p-2 items-center">
         <div className="text-xs">JW Blog @ 2022 All Rights Reserved</div>
@@ -158,4 +259,3 @@ console.log(status)
 }
 
 export default Layout;
-
