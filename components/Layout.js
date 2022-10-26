@@ -109,7 +109,7 @@ function Layout({ children, title }) {
                       </a>
                     </Link>
                   </div>
-                  <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(!menuOpen)}}>
+                  <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(false)}}>
                     <img src="/more.png" className="w-6 mobile-menu-logo" />
                     <div className="text-white ml-4">New Post</div>
                   </div>
@@ -186,10 +186,13 @@ function Layout({ children, title }) {
                       </a>
                     </Link>
                   </div>
-                  <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(!menuOpen)}}>
+                  {session && (
+                    <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(false)}}>
                     <img src="/more.png" className="w-6 mobile-menu-logo" />
                     <div className="text-white ml-4" >New Post</div>
                   </div>
+                  )}
+                  
                   <div className="flex">
                     <Link href="/account">
                       <a className="p-6 flex">

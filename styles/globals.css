@@ -7,9 +7,10 @@ html,
 body {
   padding: 0;
   margin: 0;
-  
-    overflow-x: hidden;
-    font-family: 'Lobster', sans-serif;
+  font-family: 'Lobster', sans-serif;
+}
+body {
+  overflow-x: hidden;
 }
 .blue {
   color: #135DD8;
@@ -342,4 +343,70 @@ form > button {
   cursor: pointer;
   text-decoration: underline;
 }
+.post-image-absolute {
+  position: relative;
+  width: 100% ;
+  height: 94vh;
+  transform: translateY(-120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overlay {
+    background: #292929;
+    position: absolute;
+    width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.4;
+  animation: opacity-fadein;
+  animation-duration: 0.5s;
+  }
+@keyframes opacity-fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
 
+.post-container {
+  background-color: white;
+   width: 400px;
+   height: 300px;
+   margin: 0 auto;
+   display: flex;
+   flex-flow: column;
+   align-items: center;
+   z-index: 10;
+   transform: translateY(-20%);
+   border-radius: 5%;
+}
+@media screen and (max-width: 500px) {
+  .post-container {
+    width: 90%;
+  }
+}
+.post-camera-container {
+  background: #292929;
+  width: 50px;
+  z-index: -1;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.post-text-container > input:focus {
+  outline: none;
+}
+.custom-file-upload input {
+  display: none;
+}
+.post-container > button {
+  font-weight: bolder;
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219/var(--tw-bg-opacity));
+}
