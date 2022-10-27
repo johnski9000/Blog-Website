@@ -2,25 +2,70 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { signOut, useSession } from "next-auth/react";
-import NewPost from "./NewPost";
+import axios from "axios";
+import { useRouter } from 'next/router'
 
 function Layout({ children, title }) {
   const { data: session, status } = useSession();
   console.log(session);
+  console.log(status);
+
   const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [postOpen, setPostOpen] = useState(false);
+  const [uploadData, setUploadData] = useState();
+  const [imageSrc, setImageSrc] = useState();
+  const router = useRouter()
 
-  console.log(status);
 
   function closeMenu() {
     if (menuOpen === true) {
       setMenuOpen(false);
     }
   }
-  <div className="dark-mode-bar">
-    <div className="dark-mode-ball"></div>
-  </div>;
+  function handleChange(changeEvent) {
+    const reader = new FileReader();
+
+    reader.onload = function(changeEvent) {
+      setImageSrc(changeEvent.target.result);
+      setUploadData(undefined);
+    }
+
+    reader.readAsDataURL(changeEvent.target.files[0]);
+  }
+  async function handleSubmit(event) {
+    event.preventDefault()
+    const form = event.currentTarget;
+    console.log(form)
+    const fileInput = Array.from(form.elements).find(({ name }) => name === 'file');
+    const formData = new FormData();
+
+    for ( const file of fileInput.files ) {
+      formData.append('file', file);
+    }
+
+    formData.append('upload_preset', 'my-uploads');
+
+    const data = await fetch('https://api.cloudinary.com/v1_1/dqxqttnji/image/upload', {
+      method: 'POST',
+      body: formData
+    }).then(r => r.json());
+    setImageSrc(data.secure_url);
+    setUploadData(data);
+    console.log(imageSrc)
+    console.log(uploadData)
+    if (data) {
+      const cloudUrl = data.secure_url;
+      console.log("we got data")
+      const mongoData = await axios.post("/api/sendPost",{email:session.user.email, name:session.user.name, imageUrl:cloudUrl})
+      if (mongoData) {
+        router.reload(window.location.pathname)
+      }
+    } else {
+      console.log("no data")
+    }
+  }
+ 
   return (
     <>
       <Head>
@@ -69,30 +114,7 @@ function Layout({ children, title }) {
               onClick={() => setMenuOpen(!menuOpen)}
             />
             {menuOpen && (
-              // <div className="absolut menu-pc z-0">
-              //   <div className="w-full h-4/5 relative flex justify-evenly items-center flex-col ">
-              //     <Link href="/account">
-              //       <a className=" list-item-custom ">
-              //         <div>Account</div>
-              //       </a>
-              //     </Link>
-              //     <div className="block   list-item-custom">New Post</div>
-              //     {session ? (
-              //       <div
-              //         className=" list-item-custom hover:cursor-pointer"
-              //         onClick={() => signOut()}
-              //       >
-              //         Log Out
-              //       </div>
-              //     ) : (
-              //       <Link href="/login">
-              //         <a className=" list-item-custom ">
-              //           <div>Login</div>
-              //         </a>
-              //       </Link>
-              //     )}
-              //   </div>
-              // </div>
+              
               <div className="absolute w-72 h-screen top-0 menu-pc">
                 <div className="text-white flex w-full h-20 items-center px-6">
                   <div className="w-5" onClick={() => setMenuOpen(!menuOpen)}>
@@ -109,10 +131,12 @@ function Layout({ children, title }) {
                       </a>
                     </Link>
                   </div>
-                  <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(false)}}>
+                  {session && (
+                    <div className="p-6 flex hover:cursor-pointer" onClick={() => {setPostOpen(true); setMenuOpen(false)}}>
                     <img src="/more.png" className="w-6 mobile-menu-logo" />
                     <div className="text-white ml-4">New Post</div>
                   </div>
+                  )}
                   <div className="flex">
                     <Link href="/account">
                       <a className="p-6 flex">
@@ -244,8 +268,33 @@ function Layout({ children, title }) {
       </header>
       <main className="main-page" onClick={() => closeMenu()}>
         {children}
+        
         {postOpen && (
-          <NewPost></NewPost>
+         <div className="post-image-absolute">
+         <form className="post-container" onSubmit={handleSubmit}>
+           <div className="m-8 post-camera-container">
+             <label className="custom-file-upload">
+               <input type="file" name="file" className="" onChange={handleChange}/>
+               <img src="/camera.png" className='w-7 invert'/>
+             </label>
+           </div>
+           <div className="font-bold mb-4">Upload Photo</div>
+
+           {
+            imageSrc && (
+              <div className="image-preview-container">
+              <img src={imageSrc} alt="upload image" className="image-preview"/>
+              </div>
+            )
+           }
+           <div className="m-8 post-text-container">
+               <input type="text" placeholder="Please enter a caption..." className="text-center"/>
+           </div>
+
+           <button className="w-4/5">Upload Post</button>
+         </form>
+         <div className="overlay" onClick={() => setPostOpen(!postOpen)}></div>
+       </div>
         )}
       </main>
       <footer className="flex justify-between p-2 items-center">

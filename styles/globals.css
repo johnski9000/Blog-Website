@@ -97,7 +97,7 @@ body {
     animation-name: slide-out;
   animation-duration: 1s;
   animation-iteration-count: 1;
-  background: #141d2d;
+  background: #2a2a2a;
   opacity: 1;
   z-index: 1000;
 }
@@ -149,7 +149,7 @@ body {
     animation-name: slide-out;
   animation-duration: 1s;
   animation-iteration-count: 1;
-  background: #141d2d;
+  background: #2a2a2a;
   opacity: 1;
   z-index: 1000;
 }
@@ -344,10 +344,10 @@ form > button {
   text-decoration: underline;
 }
 .post-image-absolute {
-  position: relative;
+  position: fixed;
   width: 100% ;
   height: 94vh;
-  transform: translateY(-120px);
+  transform: translateY(-137px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -356,7 +356,7 @@ form > button {
     background: #292929;
     position: absolute;
     width: 100%;
-  height: 100%;
+  height: 105%;
   top: 0;
   left: 0;
   opacity: 0.4;
@@ -375,13 +375,15 @@ form > button {
 .post-container {
   background-color: white;
    width: 400px;
-   height: 300px;
+   height: auto;
    margin: 0 auto;
+
+   padding-bottom: 25px;
    display: flex;
    flex-flow: column;
    align-items: center;
    z-index: 10;
-   transform: translateY(-20%);
+   /* transform: translateY(-20%); */
    border-radius: 5%;
 }
 @media screen and (max-width: 500px) {
@@ -409,4 +411,15 @@ form > button {
   font-weight: bolder;
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219/var(--tw-bg-opacity));
+}
+
+.image-preview-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-preview {
+  max-height: 200px;
 }

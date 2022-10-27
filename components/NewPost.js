@@ -1,9 +1,15 @@
 import React from "react";
 
-function NewPost() {
+function NewPost({props}) {
+
+  function handleChange() {
+    console.log("change")
+    console.log(props.open)
+  }
+
   return (
     <div className="post-image-absolute">
-      <form className="post-container">
+      <form className="post-container" onChange={() => {handleChange()}}>
         <div className="m-8 post-camera-container">
           <label className="custom-file-upload">
             <input type="file" className=""/>
